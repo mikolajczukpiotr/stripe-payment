@@ -11,7 +11,7 @@ The project is divided into two main folders:
 
 ## Available Scripts
 
-## All project 
+### How to run project
 
 In the project directory, you can run:
 
