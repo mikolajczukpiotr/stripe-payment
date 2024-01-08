@@ -1,18 +1,17 @@
 import "./App.css";
 import Payment from "./pages/Payment";
-
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { loadStripe } from "@stripe/stripe-js";
 import Completion from "./pages/Completion";
 
 function App() {
   const [stripePromise, setStripePromise] = useState<any>(null);
-
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
   useEffect(() => {
-    fetch("http://localhost:4242/config").then(async (r) => {
-      const { publishableKey } = await r.json();
+    // Create PaymentIntent as soon as the page loads
+    fetch(`${serverUrl}/config`).then(async (data) => {
+      const { publishableKey } = await data.json();
       setStripePromise(loadStripe(publishableKey));
     });
   }, []);
@@ -33,4 +32,3 @@ function App() {
 }
 
 export default App;
-

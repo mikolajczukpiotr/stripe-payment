@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { SuccessIcon } from "../assets/SuccessIcon";
-import "../style/Completion.css";
+import "./Completion.css";
 import { CompletionProps } from "../types";
 
-function Completion(props: CompletionProps) {
+function Completion({ stripePromise }: CompletionProps) {
   const [messageBody, setMessageBody] = useState<JSX.Element | string>("");
-  const { stripePromise } = props;
-
   useEffect(() => {
     if (!stripePromise) return;
 
@@ -21,7 +19,7 @@ function Completion(props: CompletionProps) {
 
         setMessageBody(
           error ? (
-            `> ${error.message}`
+            `${error.message}`
           ) : (
             <>
               Payment {paymentIntent.status}:{" "}
@@ -37,9 +35,9 @@ function Completion(props: CompletionProps) {
         );
       } catch (e) {
         if (e instanceof Error) {
-          setMessageBody(`> Error: ${e.message}`);
+          setMessageBody(`Error: ${e.message}`);
         } else {
-          setMessageBody(`> Error: ${e}`);
+          setMessageBody(`Error: ${e}`);
         }
       }
     });
@@ -53,11 +51,7 @@ function Completion(props: CompletionProps) {
         <p>Your payment is complete.</p>
         <a href="/">Go Back</a>
       </div>
-      <div
-        id="messages"
-        role="alert"
-        style={messageBody ? { display: "block" } : {}}
-      >
+      <div className="message" role="alert">
         {messageBody}
       </div>
     </div>

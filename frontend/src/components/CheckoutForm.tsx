@@ -5,7 +5,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import { InputField } from "./InputField";
-import "../style/CheckoutForm.css";
+import "./CheckoutForm.css";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -88,7 +88,7 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <h1>Payment</h1>
       <div>
         <div className="address">
@@ -112,7 +112,7 @@ export default function CheckoutForm() {
           </select>
         </div>
         <PaymentElement
-          id="payment-element"
+          className="payment-element"
           options={{
             fields: {
               billingDetails: {
@@ -122,10 +122,10 @@ export default function CheckoutForm() {
           }}
         />
       </div>
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">{isLoading ? "Loading" : "Pay now"}</span>
+      <button disabled={isLoading || !stripe || !elements} className="submit">
+        <span>{isLoading ? "Loading" : "Pay now"}</span>
       </button>
-      {message && <div id="payment-message">{message}</div>}
+      {message && <div className="payment-message">{message}</div>}
     </form>
   );
 }

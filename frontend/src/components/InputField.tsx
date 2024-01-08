@@ -1,12 +1,4 @@
-// InputField.tsx
-import React from "react";
-
-interface InputFieldProps {
-  label: string;
-  value: string;
-  error: string;
-  onChange: (value: string) => void;
-}
+import { InputFieldProps } from "../types";
 
 export const InputField = ({
   label,
