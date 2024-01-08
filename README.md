@@ -23,31 +23,7 @@ Installs the necessary dependencies to run the backend and frontend applications
 
 Starts the backend Node.js server and the frontend React application.
 
-
-### Backend
-
-In the `node` directory, you can run:
-
-#### `npm install`
-
-Installs the necessary dependencies to run the backend server.
-
-#### `npm start`
-
-Starts the backend Node.js server.\
 The server will run on [http://localhost:4242](http://localhost:4242).
-
-### Frontend
-
-In the `frontend` directory, you can run:
-
-#### `npm install`
-
-Installs the necessary dependencies to run the frontend application.
-
-#### `npm start`
-
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
