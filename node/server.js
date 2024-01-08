@@ -1,11 +1,9 @@
-const express = require("express");
+import express from "express";
+import cors from "cors";
+import stripe from "stripe";
 const app = express();
-const { resolve } = require("path");
-const cors = require("cors");
-// Replace if using a different env file or config
-const env = require("dotenv").config({ path: "./.env" });
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2020-08-27",
   appInfo: {
     // For sample support and debugging, not required for production:
@@ -14,16 +12,14 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
     url: "https://github.com/stripe-samples",
   },
 });
-var corsOptions = {
+const corsOptions = {
   origin: "http://localhost:3000",
-  optionsSuccessStatus: 200, // For legacy browser support
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
 app.use(
   express.json({
-    // We need the raw body to verify webhook signatures.
-    // Let's compute it only when hitting the Stripe webhook endpoint.
     verify: function (req, res, buf) {
       if (req.originalUrl.startsWith("/webhook")) {
         req.rawBody = buf.toString();
@@ -62,9 +58,7 @@ app.get("/create-payment-intent", async (req, res) => {
 app.post("/webhook", async (req, res) => {
   let data, eventType;
 
-  // Check if webhook signing is configured.
   if (process.env.STRIPE_WEBHOOK_SECRET) {
-    // Retrieve the event by verifying the signature using the raw body and secret.
     let event;
     let signature = req.headers["stripe-signature"];
     try {

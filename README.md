@@ -11,6 +11,15 @@ The project is divided into two main folders:
 
 ## Available Scripts
 
+## Setting Up Environment Variables
+
+Before running the application, you need to set up the environment variables. You can use key from .env.sample file. A `.env.sample` file is provided in the `node` and `frontend` directory as a template. You can create a `.env` file from this template with the following command:
+
+```bash
+cp node/.env.sample node/.env
+cp frontend/.env.sample frontend/.env
+```
+
 ### How to run project
 
 In the project directory, you can run:
@@ -29,4 +38,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Configuring Stripe
 
-To change the Stripe key, update the `STRIPE_PUBLISHABLE_KEY` and `STRIPE_SECRET_KEY` variable in the `.env` file in the `node` directory 
+A `.env.sample` file is provided in the `node` directory. Copy this file to a new file named `.env` in the same directory. Then, update the `STRIPE_PUBLISHABLE_KEY` and `STRIPE_SECRET_KEY` variables in the `.env` file with your actual Stripe keys. You can use key from .env.sample file.
+
