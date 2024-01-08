@@ -1,9 +1,11 @@
 import express from "express";
 import cors from "cors";
-import stripe from "stripe";
+import Stripe from "stripe";
+import { config } from "dotenv";
 const app = express();
+config({ path: "./.env" });
 
-stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2020-08-27",
   appInfo: {
     // For sample support and debugging, not required for production:
@@ -20,7 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(
   express.json({
-    verify: function (req, res, buf) {
+    verify: function (_, res, buf) {
       if (req.originalUrl.startsWith("/webhook")) {
         req.rawBody = buf.toString();
       }
@@ -28,13 +30,13 @@ app.use(
   })
 );
 
-app.get("/config", (req, res) => {
+app.get("/config", (_, res) => {
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
 });
 
-app.get("/create-payment-intent", async (req, res) => {
+app.get("/create-payment-intent", async (_, res) => {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       currency: "EUR",
